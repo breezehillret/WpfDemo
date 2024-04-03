@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="MVVMExample.CheckBoxRaiseFlag"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:MVVMExample.Converters"
+             xmlns:viewmodel="clr-namespace:MVVMExample.ViewModels"
+             xmlns:local="clr-namespace:MVVMExample">
+    <UserControl.Resources>
+        <!-- Define the animation to draw the flag -->
+        <Storyboard x:Key="DrawFlagStoryboard">
+            <!-- Animate the translateY property of the flag -->
+            <DoubleAnimation Storyboard.TargetName="Flag"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="-250"
+                             To="0"
+                             Duration="0:1:1" />
+            <!-- Animate the opacity of the flag to make it visible -->
+            <DoubleAnimation Storyboard.TargetName="Flag"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0"
+                             To="1"
+                             Duration="0:0:2" />
+        </Storyboard>
+        <!-- Define the animation to raise the flag -->
+        <Storyboard x:Key="RaiseFlagStoryboard">
+            <!-- Animate the translateY property of the flag -->
+            <DoubleAnimation Storyboard.TargetName="Flag"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="0"
+                             To="-180"
+                             Duration="0:0:2" />
+        </Storyboard>
+        <!-- Define the reverse animation to lower the flag -->
+        <Storyboard x:Key="LowerFlagStoryboard">
+            <!-- Animate the translateY property of the flag -->
+            <DoubleAnimation Storyboard.TargetName="Flag"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="-180"
+                             To="0"
+                             Duration="0:0:2" />
+            <!-- Animate the opacity of the flag to make it disappear -->
+            <DoubleAnimation Storyboard.TargetName="Flag"
+                             Storyboard.TargetProperty="Opacity"
+                             To="0"
+                             Duration="0:0:2" />
+        </Storyboard>
+
+        <converters:FlagCheckboxContentConverter x:Key="FlagCheckboxContentConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.DataContext>
+            <viewmodel:CheckBoxRaiseFlagViewModel />
+        </Grid.DataContext>
+        <CheckBox x:Name="FlagCheckbox"
+                  IsChecked="{Binding IsFlagRaised}"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Margin="10,10,0,0">
+            <CheckBox.Content>
+                <!-- Use the converter to dynamically set the content -->
+                <Binding Path="IsFlagRaised"
+                         Converter="{StaticResource FlagCheckboxContentConverter}" />
+            </CheckBox.Content>
+        </CheckBox>
+        <Grid Margin="10">
+            <!-- Flag pole -->
+            <Rectangle x:Name="Pole"
+                       Width="10"
+                       Height="250"
+                       Fill="SaddleBrown"
+                       VerticalAlignment="Bottom" />
+            <!-- Flag -->
+            <Rectangle x:Name="Flag"
+                       Opacity="0"
+                       Stroke="Black"
+                       StrokeThickness="1"
+                       Width="100"
+                       Height="70"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+                       Margin="95,0,-15,0">
+                <!-- Apply a render transform to the flag for animation -->
+                <Rectangle.RenderTransform>
+                    <TranslateTransform />
+                </Rectangle.RenderTransform>
+                <Rectangle.Fill>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <!-- Red stripes -->
+                                <GeometryDrawing Brush="Red">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,100,10" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="Red">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,20,100,10" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="Red">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,40,100,10" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <GeometryDrawing Brush="Red">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,60,100,10" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <!-- Blue field for stars -->
+                                <GeometryDrawing Brush="Blue">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,40,30" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                                <!-- Stars -->
+                                <GeometryDrawing Brush="White">
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <!-- First row of stars -->
+                                            <RectangleGeometry Rect="1,1,4,4" />
+                                            <RectangleGeometry Rect="9,1,4,4" />
+                                            <RectangleGeometry Rect="17,1,4,4" />
+                                            <RectangleGeometry Rect="25,1,4,4" />
+                                            <RectangleGeometry Rect="33,1,4,4" />
+                                            <!-- Second row of stars -->
+                                            <RectangleGeometry Rect="4,7,4,4" />
+                                            <RectangleGeometry Rect="13,7,4,4 " />
+                                            <RectangleGeometry Rect="21,7,4,4 " />
+                                            <RectangleGeometry Rect="29,7,4,4 " />
+                                            <!-- third row of stars -->
+                                            <RectangleGeometry Rect="1,14,4,4" />
+                                            <RectangleGeometry Rect="9,14,4,4" />
+                                            <RectangleGeometry Rect="17,14,4,4" />
+                                            <RectangleGeometry Rect="25,14,4,4" />
+                                            <RectangleGeometry Rect="33,14,4,4" />
+                                            <!-- forth row of stars -->
+                                            <RectangleGeometry Rect="4,21,4,4" />
+                                            <RectangleGeometry Rect="13,21,4,4" />
+                                            <RectangleGeometry Rect="21,21,4,4" />
+                                            <RectangleGeometry Rect="29,21,4,4" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+        <!-- Trigger the animation when the checkbox is checked -->
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="CheckBox.Checked"
+                          SourceName="FlagCheckbox">
+                <BeginStoryboard Storyboard="{StaticResource DrawFlagStoryboard}" />
+                <BeginStoryboard Storyboard="{StaticResource RaiseFlagStoryboard}" />
+            </EventTrigger>
+            <!-- Trigger the reverse animation when the checkbox is unchecked -->
+            <EventTrigger RoutedEvent="CheckBox.Unchecked"
+                          SourceName="FlagCheckbox">
+                <BeginStoryboard Storyboard="{StaticResource LowerFlagStoryboard}" />
+            </EventTrigger>
+        </Grid.Triggers>
+    </Grid>
+</UserControl>

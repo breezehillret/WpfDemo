@@ -1,0 +1,451 @@
+﻿<Window x:Class="MVVMExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MVVMExample"
+        xmlns:viewmodel="clr-namespace:MVVMExample.ViewModels"
+        xmlns:converters="clr-namespace:MVVMExample.Converters"
+        Title="Demo using WPF"
+        Height="800"
+        Width="600">
+    <Window.Resources>
+        <Style x:Key="DisableButtonStyle"
+               TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsButtonEnabled}"
+                             Value="False">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Style for TextBlock -->
+        <Style x:Key="BoldArialTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="FontFamily"
+                    Value="Arial" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="Blue" />
+        </Style>
+        <!-- Style for TextBox -->
+        <Style x:Key="BoldArialTextBoxStyle"
+               TargetType="TextBox">
+            <Setter Property="FontFamily"
+                    Value="Arial" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="FontSize"
+                    Value="20" />
+        </Style>
+        <!-- Style for Button -->
+        <Style x:Key="ThreeDButtonStyle"
+               TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsButtonEnabled}"
+                             Value="False">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="Foreground"
+                    Value="White" />
+            <!-- White text color -->
+            <Setter Property="BorderBrush"
+                    Value="#FF1565C0" />
+            <!-- Blue border color -->
+            <Setter Property="BorderThickness"
+                    Value="2" />
+            <Setter Property="Padding"
+                    Value="10" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="FontFamily"
+                    Value="Segoe UI" />
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <!-- Rounded corners -->
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0"
+                                                     EndPoint="0,1">
+                                    <!-- Vertical gradient -->
+                                    <GradientStop Color="#FF64B5F6"
+                                                  Offset="0" />
+                                    <!-- Light blue -->
+                                    <GradientStop Color="#FF1976D2"
+                                                  Offset="1" />
+                                    <!-- Dark blue -->
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="2"
+                                                          Color="#88000000" />
+                                        <!-- Add drop shadow effect on mouse hover -->
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0"
+                                                             EndPoint="0,1">
+                                            <!-- Pressed state gradient -->
+                                            <GradientStop Color="#FF1976D2"
+                                                          Offset="0" />
+                                            <GradientStop Color="#FF64B5F6"
+                                                          Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Window.DataContext>
+        <viewmodel:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Row for Button -->
+            <RowDefinition Height="Auto" />
+            <!-- Row for Label -->
+            <RowDefinition Height="5*" />
+            <!-- Row for Image -->
+            <RowDefinition Height="Auto" />
+            <!-- Row for Ticker -->
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Column for Button, Label and Image -->
+            <ColumnDefinition Width="300" />
+            <!-- Column for Radio Buttons and Flag control -->
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <!-- Rectangles to achieve row colors -->
+        <Rectangle Grid.Row="0"
+                   Grid.Column="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="Blue"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="1"
+                   Grid.Column="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="Red"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="2"
+                   Grid.Column="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="White"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="0"
+                   Grid.Column="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="White"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="1"
+                   Grid.Column="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="Blue"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="2"
+                   Grid.Column="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1,0"
+                                     EndPoint="0,0">
+                    <GradientStop Color="Red"
+                                  Offset="0" />
+                    <GradientStop Color="Transparent"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+
+        <local:CheckBoxRaiseFlag Grid.Row="2"
+                                 Grid.Column="1"
+                                 VerticalAlignment="Top"
+                                 HorizontalAlignment="Center" />
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Style="{StaticResource BoldArialTextBlockStyle}"
+                   Margin="5"
+                   Text="User Name:" />
+
+
+        <TextBox Grid.Row="0"
+                 Grid.Column="1"
+                 Height="30"
+                 Width="200"
+                 Margin="-80,0,0,0"
+                 VerticalAlignment="center"
+                 Style="{StaticResource BoldArialTextBoxStyle}"
+                 Text="{Binding SearchLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Content="{Binding ButtonContent}"
+                Style="{StaticResource ThreeDButtonStyle}"
+                Command="{Binding ToggleVisibilityCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,100,0,10" />
+
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="BooleanToVisibilityConverter"
+               Foreground="White"  
+               Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" />
+
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Customers}"
+                  Visibility="{Binding IsSpreadsheetLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                  Margin="10"
+                  VerticalAlignment="Top">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name"
+                                    Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name"
+                                    Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Company Name"
+                                    Binding="{Binding CompanyName}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              HorizontalAlignment="Left"
+              Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+        <!-- Building -->
+            <Rectangle Width="200"
+                       Height="150"
+                       Fill="LightGray"
+                       Margin="75,25,0,0" />
+
+
+            <!-- Windows -->
+            <Rectangle Width="25"
+                       Height="35"
+                       Fill="White"
+                       Margin="0,40,0,0" />
+            <Rectangle Width="25"
+                       Height="35"
+                       Fill="White"
+                       Margin="115,40,0,0" />
+
+            <!-- Door -->
+            <Rectangle Width="40"
+                       Height="70"
+                       Fill="Brown"
+                       Margin="205,105,0,0" />
+            <Ellipse Width="10"
+                     Height="10"
+                     Fill="Gold"
+                     Margin="220,125,0,0" />
+
+            <!-- Trees -->
+            <Path Stroke="Brown"
+                  Fill="Green"
+                  StrokeThickness="1">
+                <Path.Data>
+                    <EllipseGeometry Center="50,200"
+                                     RadiusX="15"
+                                     RadiusY="25" />
+                </Path.Data>
+            </Path>
+            <Path Stroke="Brown"
+                  Fill="Green"
+                  StrokeThickness="1">
+                <Path.Data>
+                    <EllipseGeometry Center="200,200"
+                                     RadiusX="15"
+                                     RadiusY="25" />
+                </Path.Data>
+            </Path>
+            <!-- Sign -->
+            <TextBlock FontSize="14"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       Margin="125,100,0,0">
+                <Run Text="E=mc" />
+                <Run Typography.Variants="Superscript">2</Run>
+                <Run Text="Office" />
+            </TextBlock>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Location: "
+                           FontWeight="Bold"
+                           FontSize="16" />
+                <TextBox Width="150"
+                         Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="16" />
+                <Button Content="Get Weather"
+                        Command="{Binding GetWeatherCommand}" />
+                <TextBlock Text="{Binding WeatherInfo.Location, UpdateSourceTrigger=PropertyChanged}"
+                           FontWeight="Bold"
+                           FontSize="20" />
+                <TextBlock Text="{Binding WeatherInfo.Condition, UpdateSourceTrigger=PropertyChanged}"
+                           FontWeight="Bold"
+                           FontSize="16" />
+                <TextBlock Text="{Binding WeatherInfo.Temperature, StringFormat={}{0}°F, UpdateSourceTrigger=PropertyChanged}"
+                           FontWeight="Bold"
+                           FontSize="16" />
+            </StackPanel>
+            <!-- Add more bindings for other properties -->
+        </StackPanel>
+
+        <!--<StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <RadioButton Content="Red"
+                         GroupName="ColorGroup"
+                         Margin="0,0,0,0"
+                         Checked="RadioButton_Checked" />
+            <RadioButton Content="Green"
+                         GroupName="ColorGroup"
+                         Margin="0,10,0,0"
+                         Checked="RadioButton_Checked" />
+            <RadioButton Content="Blue"
+                         GroupName="ColorGroup"
+                         Margin="0,10,0,0"
+                         Checked="RadioButton_Checked" />
+            <Label Name="RadioButtonLabel"
+                   Margin="0,10,0,10"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+        </StackPanel>-->
+        <!--Ticker-->
+        <TextBlock Text="AAL $180.95 | AMZN $174.41 | GOOGL $1380.20 | MSFT $406.44 | TSLA $204.42 | XRX $180.501"
+                   HorizontalAlignment="Stretch"
+                   Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}}"
+                   VerticalAlignment="Bottom"
+                   Grid.Row="3"
+                   Margin="-200,20,0,0">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="TickerTransform"
+                                    X="600" />
+            </TextBlock.RenderTransform>
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetName="TickerTransform"
+                                             Storyboard.TargetProperty="X"
+                                             From="800"
+                                             To="-300"
+                                             Duration="0:0:7" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+        <Canvas Name="Car"
+                Margin="50,10,10,10"
+                AllowDrop="True">
+            <!-- Car Drawing Using Path -->
+            <Path Fill="OrangeRed"
+                  Stroke="Black"
+                  StrokeThickness="1"
+                  Data="M10,20 L90,20 105,50 100,50 90,30 30,30z M15,45 A10,10 0 1,1 35,45 A10,10 0 1,1 15,45z M75,45 A10,10 0 1,1 95,45 A10,10 0 1,1 75,45z"
+                  Canvas.Left="0"
+                  Canvas.Top="0"
+                  PreviewMouseLeftButtonDown="Car_PreviewMouseLeftButtonDown"
+                  PreviewMouseMove="Car_PreviewMouseMove"
+                  PreviewMouseLeftButtonUp="Car_PreviewMouseLeftButtonUp" />
+        </Canvas>
+        <StackPanel Grid.Row="2"
+                    Grid.Column="1"
+                    Width="100"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left">
+            <TextBlock Text="{Binding LoadingStatus}"
+                       TextWrapping="Wrap"
+                       Margin="5" />
+            <Button Content="Async demo"
+                    Style="{StaticResource ThreeDButtonStyle}"
+                    Command="{Binding LoadDataCommand}"
+                    Margin="5" />
+            <ProgressBar Value="{Binding Progress}"
+                         Visibility="Visible"
+                         Foreground="Blue"
+                         Minimum="0"
+                         Maximum="100"
+                         Height="20"
+                         Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>
