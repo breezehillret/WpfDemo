@@ -18,42 +18,8 @@ namespace MVVMExample
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModels.MainViewModel();
         }
 
-        ///// <summary>
-        /// RadioButton Checked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    RadioButton radioButton = sender as RadioButton;
-
-        //    if (radioButton != null && radioButton.IsChecked == true)
-        //    {
-        //        RadioButtonLabel.Content = radioButton.Content;
-        //        var color = RadioButtonLabel.Content.ToString();
-        //        switch (color.ToLower())
-        //        {
-        //            case "red":
-        //                RadioButtonLabel.Foreground = System.Windows.Media.Brushes.Red;
-        //                RadioButtonLabel.Background = System.Windows.Media.Brushes.Cyan;
-        //                break;
-        //            case "green":
-        //                RadioButtonLabel.Foreground = System.Windows.Media.Brushes.Green;
-        //                RadioButtonLabel.Background = System.Windows.Media.Brushes.LightGray;
-        //                break;
-        //            case "blue":
-        //                RadioButtonLabel.Foreground = System.Windows.Media.Brushes.Blue;
-        //                RadioButtonLabel.Background = System.Windows.Media.Brushes.Yellow;
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //        RadioButtonLabel.Background = System.Windows.Media.Brushes.White;
-        //    }
-        //}
         private void Car_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var car = sender as Path;

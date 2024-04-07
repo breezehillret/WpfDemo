@@ -142,6 +142,7 @@
             <!-- Column for Radio Buttons and Flag control -->
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
+        
         <!-- Rectangles to achieve row colors -->
         <Rectangle Grid.Row="0"
                    Grid.Column="1">
@@ -164,7 +165,7 @@
                     <GradientStop Color="Red"
                                   Offset="0" />
                     <GradientStop Color="Transparent"
-                                  Offset="1" />
+                                  Offset="1.5" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
@@ -203,7 +204,7 @@
                     <GradientStop Color="Blue"
                                   Offset="0" />
                     <GradientStop Color="Transparent"
-                                  Offset="1" />
+                                  Offset="1.5" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
@@ -220,7 +221,6 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-
 
         <local:CheckBoxRaiseFlag Grid.Row="2"
                                  Grid.Column="1"
@@ -339,7 +339,8 @@
                 <Run Text="Office" />
             </TextBlock>
         </Grid>
-
+        
+        <!--Weather-->
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
@@ -364,30 +365,8 @@
                            FontWeight="Bold"
                            FontSize="16" />
             </StackPanel>
-            <!-- Add more bindings for other properties -->
         </StackPanel>
 
-        <!--<StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Grid.Row="1"
-                    Grid.Column="1">
-            <RadioButton Content="Red"
-                         GroupName="ColorGroup"
-                         Margin="0,0,0,0"
-                         Checked="RadioButton_Checked" />
-            <RadioButton Content="Green"
-                         GroupName="ColorGroup"
-                         Margin="0,10,0,0"
-                         Checked="RadioButton_Checked" />
-            <RadioButton Content="Blue"
-                         GroupName="ColorGroup"
-                         Margin="0,10,0,0"
-                         Checked="RadioButton_Checked" />
-            <Label Name="RadioButtonLabel"
-                   Margin="0,10,0,10"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" />
-        </StackPanel>-->
         <!--Ticker-->
         <TextBlock Text="AAL $180.95 | AMZN $174.41 | GOOGL $1380.20 | MSFT $406.44 | TSLA $204.42 | XRX $180.501"
                    HorizontalAlignment="Stretch"
@@ -413,6 +392,7 @@
                 </EventTrigger>
             </TextBlock.Triggers>
         </TextBlock>
+        <!-- Car  -->
         <Canvas Name="Car"
                 Margin="50,10,10,10"
                 AllowDrop="True">

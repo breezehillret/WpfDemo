@@ -37,8 +37,8 @@ namespace MVVMExample.ViewModels
             try
             {
                 string filePath = (_isFlagRaised) ?
-                    "C:\\Users\\Breez\\source\\repos\\MVVMWPFExample\\MVVMTriggerExample\\Star Spangled Banner, National Anthem - Instrumental 01.wav" :
-                    "C:\\Users\\Breez\\source\\repos\\MVVMWPFExample\\MVVMTriggerExample\\OTc3NjYzODY5Nzc3Njg_4wx79u4n42Q.mp3";
+                    "C:\\Users\\Breez\\source\\repos\\GitHub\\WpfDemo\\MVVMWPFExample\\MVVMTriggerExample\\Star Spangled Banner, National Anthem - Instrumental 01.wav" :
+                    "C:\\Users\\Breez\\source\\repos\\GitHub\\WpfDemo\\MVVMWPFExample\\MVVMTriggerExample\\OTc3NjYzODY5Nzc3Njg_4wx79u4n42Q.mp3";
 
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.Open(new Uri(filePath));
