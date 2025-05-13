@@ -71,7 +71,7 @@
             <!-- Flag -->
             <Rectangle x:Name="Flag"
                        Opacity="0"
-                       Stroke="Black"
+                       Stroke="Blue"
                        StrokeThickness="1"
                        Width="100"
                        Height="70"
@@ -86,7 +86,62 @@
                     <DrawingBrush>
                         <DrawingBrush.Drawing>
                             <DrawingGroup>
-                                <!-- Red stripes -->
+                                <!-- Top blue stripe -->
+                                <GeometryDrawing Brush="Blue">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,100,15" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+
+                                <!-- Bottom blue stripe -->
+                                <GeometryDrawing Brush="Blue">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,90,100,15" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+
+                                <!-- Upward triangle outline -->
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="Blue"
+                                             Thickness="4" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="50,25"
+                                                        IsClosed="True">
+                                                <LineSegment Point="30,70" />
+                                                <LineSegment Point="70,70" />
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+
+                                <!-- Downward triangle outline -->
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="Blue"
+                                             Thickness="4" />
+                                    </GeometryDrawing.Pen>
+                                    <GeometryDrawing.Geometry>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="50,85"
+                                                        IsClosed="True">
+                                                <LineSegment Point="30,40" />
+                                                <LineSegment Point="70,40" />
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Rectangle.Fill>
+                <!--<Rectangle.Fill>
+                    <DrawingBrush>
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                --><!-- Red stripes --><!--
                                 <GeometryDrawing Brush="Red">
                                     <GeometryDrawing.Geometry>
                                         <RectangleGeometry Rect="0,0,100,10" />
@@ -107,34 +162,34 @@
                                         <RectangleGeometry Rect="0,60,100,10" />
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
-                                <!-- Blue field for stars -->
+                                --><!-- Blue field for stars --><!--
                                 <GeometryDrawing Brush="Blue">
                                     <GeometryDrawing.Geometry>
                                         <RectangleGeometry Rect="0,0,40,30" />
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
-                                <!-- Stars -->
+                                --><!-- Stars --><!--
                                 <GeometryDrawing Brush="White">
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
-                                            <!-- First row of stars -->
+                                            --><!-- First row of stars --><!--
                                             <RectangleGeometry Rect="1,1,4,4" />
                                             <RectangleGeometry Rect="9,1,4,4" />
                                             <RectangleGeometry Rect="17,1,4,4" />
                                             <RectangleGeometry Rect="25,1,4,4" />
                                             <RectangleGeometry Rect="33,1,4,4" />
-                                            <!-- Second row of stars -->
+                                            --><!-- Second row of stars --><!--
                                             <RectangleGeometry Rect="4,7,4,4" />
                                             <RectangleGeometry Rect="13,7,4,4 " />
                                             <RectangleGeometry Rect="21,7,4,4 " />
                                             <RectangleGeometry Rect="29,7,4,4 " />
-                                            <!-- third row of stars -->
+                                            --><!-- third row of stars --><!--
                                             <RectangleGeometry Rect="1,14,4,4" />
                                             <RectangleGeometry Rect="9,14,4,4" />
                                             <RectangleGeometry Rect="17,14,4,4" />
                                             <RectangleGeometry Rect="25,14,4,4" />
                                             <RectangleGeometry Rect="33,14,4,4" />
-                                            <!-- forth row of stars -->
+                                            --><!-- forth row of stars --><!--
                                             <RectangleGeometry Rect="4,21,4,4" />
                                             <RectangleGeometry Rect="13,21,4,4" />
                                             <RectangleGeometry Rect="21,21,4,4" />
@@ -145,7 +200,7 @@
                             </DrawingGroup>
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
-                </Rectangle.Fill>
+                </Rectangle.Fill>-->
             </Rectangle>
         </Grid>
         <!-- Trigger the animation when the checkbox is checked -->
