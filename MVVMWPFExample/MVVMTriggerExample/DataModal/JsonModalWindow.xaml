@@ -1,0 +1,48 @@
+﻿<Window x:Class="MVVMExample.DataModal.JsonModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MVVMExample.DataModal"
+        Title="JsonModalWindow"
+        Height="450"
+        Width="500">
+    <Grid>
+        <!-- Load JSON Button -->
+        <Button Content="Load JSON"
+                Command="{Binding LoadJsonCommand}"
+                Background="DodgerBlue"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"
+                Width="120"
+                Height="30"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,20"
+                BorderBrush="DarkBlue"
+                BorderThickness="1" />
+
+        <!-- Move Up Button -->
+        <Button Content="Move Up"
+                Command="{Binding MoveUpCommand}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="10,50,0,0"
+                Width="100"
+                Height="30" />
+
+        <!-- Move Down Button -->
+        <Button Content="Move Down"
+                Command="{Binding MoveDownCommand}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0,50,10,0"
+                Width="100"
+                Height="30" />
+
+        <!-- DataGrid to display JSON -->
+        <DataGrid ItemsSource="{Binding JsonData}"
+                  AutoGenerateColumns="True"
+                  Margin="10,100,10,10"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}" />
+    </Grid>
+</Window>

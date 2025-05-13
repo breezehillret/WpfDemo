@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using MVVMExample.Modal;
+using MVVMExample.UavModal;
+using MVVMExample.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-
 
 namespace MVVMExample
 {
@@ -14,12 +15,29 @@ namespace MVVMExample
     {
         private bool isDragging;
         private Point startPoint;
+        private readonly ModalViewModel _modalViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            var windowService = new WindowService();
+            var mainViewModel = new MainViewModel(windowService);
+            DataContext = mainViewModel;
+
+            _modalViewModel = new ModalViewModel(this);
         }
 
+        private void ModalButton(object sender, RoutedEventArgs e)
+        {
+            _modalViewModel.ShowModal();
+        }
+        //private async void LaunchPowerShellButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    await _modalViewModel.RunPowerShellCommand();
+        //}
+
+        #region Car Drag and Drop
         private void Car_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var car = sender as Path;
@@ -34,6 +52,7 @@ namespace MVVMExample
                 car.CaptureMouse();
             }
         }
+
         private void Car_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             var car = sender as Path;
@@ -46,6 +65,7 @@ namespace MVVMExample
                 startPoint = currentPosition;
             }
         }
+
         private void Car_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var car = sender as Path;
@@ -54,6 +74,12 @@ namespace MVVMExample
                 isDragging = false;
                 car.ReleaseMouseCapture();
             }
+        }
+        #endregion Car Drag and Drop
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace MVVMExample.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public struct BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

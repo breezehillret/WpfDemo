@@ -1,0 +1,47 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Alice",
+    "Age": 30,
+    "Department": "HR",
+    "Position": "Director",
+    "Gender": "Female",
+    "YearsWithCompany": "4"
+  },
+  {
+    "Id": 2,
+    "Name": "Bob",
+    "Age": 35,
+    "Department": "IT",
+    "Position": "Software Engineer",
+    "Gender": "Male",
+    "YearsWithCompany": "6"
+  },
+  {
+    "Id": 3,
+    "Name": "Charlie",
+    "Age": 28,
+    "Department": "Finance",
+    "Position": "Bean Counter",
+    "Gender": "Male",
+    "YearsWithCompany": "3"
+  },
+  {
+    "Id": 4,
+    "Name": "Juan",
+    "Age": 40,
+    "Department": "IT",
+    "Position": "Manager",
+    "Gender": "Male",
+    "YearsWithCompany": "8"
+  },
+  {
+    "Id": 3,
+    "Name": "Felicia",
+    "Age": 28,
+    "Department": "IT",
+    "Position": "QA Analyst",
+    "Gender": "Female",
+    "YearsWithCompany": "5"
+  }
+]

@@ -2,7 +2,7 @@
 
 namespace MVVMExample.ViewModels
 {
-    public class ViewModelBase
+    public class OnPropertyChangedBase
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

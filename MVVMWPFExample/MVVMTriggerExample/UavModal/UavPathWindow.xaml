@@ -1,0 +1,78 @@
+﻿<Window x:Class="MVVMExample.UavModal.UavPathModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UAV Path Modal"
+        Height="600"
+        Width="1000">
+
+    <Grid>
+        <!-- Define Rows for Buttons and Canvas -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Row for buttons -->
+            <RowDefinition Height="*" />
+            <!-- Row for canvas -->
+            <RowDefinition Height="Auto" />
+            <!-- Row for reset button -->
+        </Grid.RowDefinitions>
+
+        <!-- StackPanel for Directional Buttons -->
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="10">
+            <Button Content="Left"
+                    Command="{Binding MoveLeftCommand}"
+                    Width="75"
+                    Margin="5" />
+            <Button Content="Right"
+                    Command="{Binding MoveRightCommand}"
+                    Width="75"
+                    Margin="5" />
+            <Button Content="Forward"
+                    Command="{Binding MoveForwardCommand}"
+                    Width="75"
+                    Margin="5" />
+            <Button Content="Backward"
+                    Command="{Binding MoveBackwardCommand}"
+                    Width="75"
+                    Margin="5" />
+            <Button Content="Loiter"
+                    Command="{Binding LoiterCommand}"
+                    Width="75"
+                    Margin="5" />
+        </StackPanel>
+
+        <Canvas Grid.Row="1"
+                x:Name="UavCanvas"
+                Background="LightGray"
+                Margin="10"
+                SizeChanged="Canvas_SizeChanged">
+
+            <!-- Dashed line trail should come first so it's drawn *behind* the UAV -->
+            <Polyline Points="{Binding TrailPoints}"
+                      Stroke="Gray"
+                      StrokeThickness="1"
+                      StrokeDashArray="4 2" />
+
+            <!-- UAV Representation -->
+            <Ellipse x:Name="UavShape"
+                     Width="20"
+                     Height="20"
+                     Fill="Red"
+                     Canvas.Left="{Binding UavPositionX}"
+                     Canvas.Top="{Binding UavPositionY}" />
+        </Canvas>
+        
+        <!-- Reset Position Button -->
+        <Button Grid.Row="2"
+                Content="Reset Position"
+                Command="{Binding ResetPositionCommand}"
+                Width="100"
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="10" />
+    </Grid>
+</Window>

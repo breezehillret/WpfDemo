@@ -7,7 +7,9 @@
         Title="Demo using WPF"
         Height="800"
         Width="600">
+
     <Window.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="DisableButtonStyle"
                TargetType="Button">
             <Style.Triggers>
@@ -18,7 +20,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <!-- Style for TextBlock -->
+        <!--Style for TextBlock-->
         <Style x:Key="BoldArialTextBlockStyle"
                TargetType="TextBlock">
             <Setter Property="FontFamily"
@@ -28,7 +30,7 @@
             <Setter Property="Foreground"
                     Value="Blue" />
         </Style>
-        <!-- Style for TextBox -->
+        <!--Style for TextBox-->
         <Style x:Key="BoldArialTextBoxStyle"
                TargetType="TextBox">
             <Setter Property="FontFamily"
@@ -38,7 +40,7 @@
             <Setter Property="FontSize"
                     Value="20" />
         </Style>
-        <!-- Style for Button -->
+        <!--Style for Button-->
         <Style x:Key="ThreeDButtonStyle"
                TargetType="Button">
             <Style.Triggers>
@@ -50,10 +52,10 @@
             </Style.Triggers>
             <Setter Property="Foreground"
                     Value="White" />
-            <!-- White text color -->
+            <!--White text color-->
             <Setter Property="BorderBrush"
                     Value="#FF1565C0" />
-            <!-- Blue border color -->
+            <!--Blue border color-->
             <Setter Property="BorderThickness"
                     Value="2" />
             <Setter Property="Padding"
@@ -70,17 +72,17 @@
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="10">
-                            <!-- Rounded corners -->
+                            <!--Rounded corners-->
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0"
                                                      EndPoint="0,1">
-                                    <!-- Vertical gradient -->
+                                    <!--Vertical gradient-->
                                     <GradientStop Color="#FF64B5F6"
                                                   Offset="0" />
-                                    <!-- Light blue -->
+                                    <!--Light blue-->
                                     <GradientStop Color="#FF1976D2"
                                                   Offset="1" />
-                                    <!-- Dark blue -->
+                                    <!--Dark blue-->
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Grid>
@@ -95,7 +97,7 @@
                                     <Setter.Value>
                                         <DropShadowEffect ShadowDepth="2"
                                                           Color="#88000000" />
-                                        <!-- Add drop shadow effect on mouse hover -->
+                                        <!--Add drop shadow effect on mouse hover-->
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -105,7 +107,7 @@
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,0"
                                                              EndPoint="0,1">
-                                            <!-- Pressed state gradient -->
+                                            <!--Pressed state gradient-->
                                             <GradientStop Color="#FF1976D2"
                                                           Offset="0" />
                                             <GradientStop Color="#FF64B5F6"
@@ -119,11 +121,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Window.DataContext>
-        <viewmodel:MainViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <!-- Row for Button -->
@@ -142,7 +140,7 @@
             <!-- Column for Radio Buttons and Flag control -->
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
-        
+
         <!-- Rectangles to achieve row colors -->
         <Rectangle Grid.Row="0"
                    Grid.Column="1">
@@ -233,7 +231,7 @@
                    HorizontalAlignment="Right"
                    Style="{StaticResource BoldArialTextBlockStyle}"
                    Margin="5"
-                   Text="User Name:" />
+                   Text="Data Filter:" />
 
 
         <TextBox Grid.Row="0"
@@ -256,7 +254,7 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                Content="BooleanToVisibilityConverter"
-               Foreground="White"  
+               Foreground="White"
                Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
@@ -277,13 +275,13 @@
                                     Binding="{Binding CompanyName}" />
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <Grid Grid.Row="2"
               Grid.Column="0"
               HorizontalAlignment="Left"
               Visibility="{Binding IsLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-        <!-- Building -->
+            <!-- Building -->
             <Rectangle Width="200"
                        Height="150"
                        Fill="LightGray"
@@ -333,27 +331,53 @@
             <TextBlock FontSize="14"
                        FontWeight="Bold"
                        Foreground="Black"
-                       Margin="125,100,0,0">
+                       Margin="100,100,0,0">
                 <Run Text="E=mc" />
                 <Run Typography.Variants="Superscript">2</Run>
-                <Run Text="Office" />
+                <Run Text="   Main Office" />
             </TextBlock>
         </Grid>
-        
-        <!--Weather-->
+
+        <!--Weather (mostly)-->
         <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center" 
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    Margin="0,-40,0,0"
                     Grid.Row="1"
                     Grid.Column="1">
             <StackPanel Orientation="Vertical">
+
+                <Button Content="Open UAV Path"
+                        Style="{StaticResource ThreeDButtonStyle}"
+                        Command="{Binding ShowUavPathCommand}"
+                        Width="Auto"
+                        Margin="20" />
+
+                <!-- ETL Button -->
+                <Button Content="Json Modal"
+                        Style="{StaticResource ThreeDButtonStyle}"
+                        Width="90"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Command="{Binding OpenJsonModalCommand}" />
+
+                <!--Pop the modal-->
+                <Button Content="PS Modal"
+                        Style="{StaticResource ThreeDButtonStyle}"
+                        Click="ModalButton"
+                        Width="90"
+                        Margin="20" />
+                <!--End of Pop the modal-->
+
                 <TextBlock Text="Location: "
                            FontWeight="Bold"
                            FontSize="16" />
                 <TextBox Width="150"
+                         Margin="5"
                          Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="16" />
                 <Button Content="Get Weather"
+                        Style="{StaticResource ThreeDButtonStyle}"
                         Command="{Binding GetWeatherCommand}" />
                 <TextBlock Text="{Binding WeatherInfo.Location, UpdateSourceTrigger=PropertyChanged}"
                            FontWeight="Bold"
@@ -364,6 +388,7 @@
                 <TextBlock Text="{Binding WeatherInfo.Temperature, StringFormat={}{0}°F, UpdateSourceTrigger=PropertyChanged}"
                            FontWeight="Bold"
                            FontSize="16" />
+                
             </StackPanel>
         </StackPanel>
 
@@ -412,6 +437,7 @@
                     Width="100"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left">
+
             <TextBlock Text="{Binding LoadingStatus}"
                        TextWrapping="Wrap"
                        Margin="5" />

@@ -1,0 +1,68 @@
+﻿[
+  {
+    "item": "salad",
+    "quantity": 2,
+    "size": "Medium Bag",
+    "manufacturer": "GreenFarm Co."
+  },
+  {
+    "item": "potatoes",
+    "quantity": 5,
+    "size": "5 lb Bag",
+    "manufacturer": "HarvestLand"
+  },
+  {
+    "item": "eggs",
+    "quantity": 12,
+    "size": "Large Dozen",
+    "manufacturer": "GoldenEggs Ltd."
+  },
+  {
+    "item": "bread",
+    "quantity": 1,
+    "size": "Loaf",
+    "manufacturer": "FreshBake Co."
+  },
+  {
+    "item": "paper towels",
+    "quantity": 6,
+    "size": "Rolls Pack",
+    "manufacturer": "CleanEase Supplies"
+  },
+  {
+    "item": "fruit",
+    "quantity": 3,
+    "size": "Variety Pack",
+    "manufacturer": "Nature's Basket"
+  },
+  {
+    "item": "bottled water",
+    "quantity": 24,
+    "size": "16.9 oz Bottles",
+    "manufacturer": "AquaPure Inc."
+  },
+  {
+    "item": "avocado",
+    "quantity": 4,
+    "size": "Individual",
+    "manufacturer": "GreenHarvest"
+  },
+  {
+    "item": "hamburger",
+    "quantity": 1,
+    "size": "1 lb Pack",
+    "manufacturer": "GrillMaster Meats"
+  },
+  {
+    "item": "bacon",
+    "quantity": 1,
+    "size": "12 oz Pack",
+    "manufacturer": "SmokyFields"
+  },
+  {
+    "item": "steak",
+    "quantity": 2,
+    "size": "10 oz Cuts",
+    "manufacturer": "PrimeCuts Meats"
+  }
+]

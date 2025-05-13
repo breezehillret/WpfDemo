@@ -1,25 +1,35 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-using System.Windows;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using MVVMExample.API;
+using MVVMExample.DataModal;
+using MVVMExample.Models;
+using MVVMExample.UavModal;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using MVVMExample.Models;
-using System;
-using MVVMExample.API;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight.CommandWpf;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Input;
+
+/// <summary>
+/// This is an example of a viewmodel from my wpf demo app. I would be more than happy to
+/// demonstrate the application in it's entirety during an interview. In that application,
+/// I show 2 different modal windows, animation, async, powershell, linkedlist, user controls,
+/// interfaces, json data serialization, service consumption and many other design ideas.
+/// </summary>
 
 namespace MVVMExample.ViewModels
 {
-    public class MainViewModel : ViewModelBase, INotifyPropertyChanged
+    public class MainViewModel : OnPropertyChangedBase, INotifyPropertyChanged
     {
-        private bool _isButtonEnabled;
+        #region Constatant String
         private const string ConnectionString = "Data Source=DAVIDS-LAPTOP\\SQLEXPRESS;Initial Catalog=AdventureWorksLT2019;Integrated Security=True;TrustServerCertificate=true;";
-        private WeatherService _weatherService;
 
+        #endregion Constatant String
 
+        private readonly IWindowService _windowService;
+
+        #region Properties
         private WeatherInfo _weatherInfo;
         public WeatherInfo WeatherInfo
         {
@@ -45,6 +55,7 @@ namespace MVVMExample.ViewModels
             }
         }
 
+        private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
             get { return _isButtonEnabled; }
@@ -217,20 +228,42 @@ namespace MVVMExample.ViewModels
             }
         }
 
+        #endregion Properties
+
+
+
         public ICommand LoadDataCommand { get; }
-
         public ICommand ToggleVisibilityCommand { get; }
+        public ICommand OpenJsonModalCommand { get; }
+        public ICommand ShowUavPathCommand { get; }
+        public ICommand GetWeatherCommand { get; private set; }
 
-        public MainViewModel()
+
+        private void ToggleVisibility(object parameter)
         {
+            IsLabelVisible = !IsLabelVisible;
+        }
+
+        #region Constructor(s)
+
+        public MainViewModel(IWindowService? windowService = null)
+        {
+            _windowService = windowService ?? new WindowService(); // fallback if null
+
             IsButtonEnabled = true;
             IsLabelVisible = false;
             IsSpreadsheetLabelVisible = false;
+
             ToggleVisibilityCommand = new RelayCommand(ToggleVisibility);
+            OpenJsonModalCommand = new RelayCommand(OpenJsonModal);
 
-            // Initialize other properties and commands...
+            ShowUavPathCommand = new RelayCommand(async(parameter) =>
+            {
+                _windowService.ShowUavPathModal();
+            });
+
+            // Other logic...
             LoadAllCustomers();
-
             LoadingStatus = "Simulate asynchronous data loading with a delay";
 
             LoadDataCommand = new RelayCommand(async (parameter) =>
@@ -242,12 +275,16 @@ namespace MVVMExample.ViewModels
             GetWeatherCommand = new RelayCommand<string>(async (location) => await GetWeatherAsync());
         }
 
-        public ICommand GetWeatherCommand { get; private set; }
+        #endregion
+
+        #region private methods
+        private WeatherService _weatherService;
 
         private async Task GetWeatherAsync()
         {
             if (!string.IsNullOrWhiteSpace(Location))
             {
+                // WeatherService API method
                 WeatherInfo = await _weatherService.GetWeatherAsync(Location);
             }
         }
@@ -319,12 +356,23 @@ namespace MVVMExample.ViewModels
                 // Initially populate the grid with all customers
                 Customers = AllCustomers;
             }
+            catch (SqlException sqlEx)
+            {
+                // Log the error details to the Output Window for developers or admins
+                LogError(sqlEx);
+
+                // Inform the developer about the error in the Output Window
+                Debug.WriteLine($"SQL Exception: {sqlEx}");
+            }
             catch (Exception ex)
             {
-                // Handle exceptions...
+                // Log any unexpected errors to the Output Window
+                LogError(ex);
+
+                // Inform the developer about the unexpected error in the Output Window
+                Debug.WriteLine($"Unexpected Error: {ex}");
             }
         }
-
 
         private void FilterCustomers()
         {
@@ -335,19 +383,29 @@ namespace MVVMExample.ViewModels
             }
             else
             {
-                // Filter customers based on the search text
-                //Customers = new ObservableCollection<Customer>(
-                //    from customer in AllCustomers
-                //    where customer.LastName.Contains(SearchLastName)
-                //    select customer);
                 Customers = new ObservableCollection<Customer>(AllCustomers.Where(c => c.LastName.Contains(SearchLastName)));
             }
         }
 
-        private void ToggleVisibility(object parameter)
+        private void OpenJsonModal(object parameter)
         {
-            IsLabelVisible = !IsLabelVisible;
+            // Open the modal window
+            var jsonModal = new JsonModalWindow();
+            jsonModal.ShowDialog();
         }
+
+        private void LogError(Exception ex)
+        {
+            Debug.WriteLine($"Error Message: {ex.Message}");
+            Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+            if (ex.InnerException != null)
+            {
+                Debug.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+                Debug.WriteLine($"Inner Exception Stack Trace: {ex.InnerException.StackTrace}");
+            }
+        }
+
+        #endregion private methods
     }
 }
 

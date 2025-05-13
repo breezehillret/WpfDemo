@@ -1,49 +1,61 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Input;
 
-namespace MVVMExample.ViewModels
+namespace MVVMExample.Controllers
 {
-    public class CheckBoxRaiseFlagViewModel : OnPropertyChangedBase, INotifyPropertyChanged
+    public class FlagController : INotifyPropertyChanged
     {
+        private bool _isFlagRaised;
+
         #region Constant Strings
         private const string Anthem = "C:\\Users\\Breez\\source\\repos\\GitHub\\WpfDemo\\MVVMWPFExample\\MVVMTriggerExample\\Star Spangled Banner, National Anthem - Instrumental 01.wav";
         private const string Flinstones = "C:\\Users\\Breez\\source\\repos\\GitHub\\WpfDemo\\MVVMWPFExample\\MVVMTriggerExample\\OTc3NjYzODY5Nzc3Njg_4wx79u4n42Q.mp3";
+        #endregion
 
-        #endregion Constant Strings
-
-        #region Properties
-        private bool _isFlagRaised;
         public bool IsFlagRaised
         {
-            get { return _isFlagRaised; }
-            set
+            get => _isFlagRaised;
+            private set
             {
                 if (_isFlagRaised != value)
                 {
                     _isFlagRaised = value;
-                    OnPropertyChanged();
-                    //PlaySoundAsync();
+                    OnPropertyChanged(nameof(IsFlagRaised));
+                    _ = PlaySoundAsync(value); // Fire and forget sound effect
                 }
             }
         }
 
-        #endregion Properties
+        public ICommand RaiseFlagCommand { get; }
+        public ICommand LowerFlagCommand { get; }
 
-        #region Example of Override
-        protected override void OnPropertyChanged(string propertyName = null)
+        public FlagController()
         {
-            base.OnPropertyChanged(propertyName); 
+            RaiseFlagCommand = new RelayCommand(_ => ToggleFlag(true));
+            LowerFlagCommand = new RelayCommand(_ => ToggleFlag(false));
         }
 
-        #endregion Example of Override
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        #region Media
-        private async Task PlaySoundAsync()
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void ToggleFlag(bool isRaised)
+        {
+            IsFlagRaised = isRaised; // Trigger property setter, which plays the sound
+        }
+
+        private async Task PlaySoundAsync(bool isRaised)
         {
             try
             {
-                string filePath = (_isFlagRaised) ? Anthem : Flinstones;
+                string filePath = isRaised ? Anthem : Flinstones;
 
                 // Initialize MediaPlayer on the UI thread
                 MediaPlayer mediaPlayer = await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -55,8 +67,8 @@ namespace MVVMExample.ViewModels
 
                 mediaPlayer.Play();
 
-                // Wait for 8 seconds before stopping the sound
-                await Task.Delay(8000);
+                // Wait for 9 seconds before stopping the sound
+                await Task.Delay(9000);
 
                 // Stop and close the MediaPlayer on the UI thread
                 await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -70,7 +82,5 @@ namespace MVVMExample.ViewModels
                 Console.WriteLine($"Error playing sound: {ex.Message}");
             }
         }
-
-        #endregion Media
     }
 }

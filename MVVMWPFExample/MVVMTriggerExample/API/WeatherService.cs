@@ -1,7 +1,6 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using MVVMExample.Models;
+﻿using MVVMExample.Models;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace MVVMExample.API
 {
@@ -9,13 +8,15 @@ namespace MVVMExample.API
     {
         private readonly HttpClient _httpClient;
 
+        #region Constructor
         public WeatherService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new System.Uri("https://api.openweathermap.org/data/2.5/"); // OpenWeatherMap API
         }
 
-        // Welcome to Alpha Vantage! Here is your API key: 542B7UMWMOI4EWCC
+        #endregion Constructor
+
         public async Task<WeatherInfo> GetWeatherAsync(string location)
         {
             var apiKey = "5c1f500ba4064ab3c70e080f6666be2d";
@@ -38,6 +39,7 @@ namespace MVVMExample.API
             }
         }
 
+        #region Nested Classes
         private class WeatherData
         {
             public Weather[] weather { get; set; }
@@ -53,5 +55,7 @@ namespace MVVMExample.API
         {
             public double temp { get; set; }
         }
+
+        #endregion Nested Classes
     }
 }

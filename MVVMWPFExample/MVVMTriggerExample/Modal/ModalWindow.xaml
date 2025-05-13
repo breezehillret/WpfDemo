@@ -1,0 +1,352 @@
+﻿<Window x:Class="MVVMExample.Modal.ModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Modal Window"
+        ResizeMode="NoResize"
+        Background="White"
+        BorderBrush="Blue"
+        BorderThickness="2"
+        Height="700"
+        Width="450">
+    <Window.Resources>
+        <Storyboard x:Key="BounceAnimation"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="DotEllipse"
+                             Storyboard.TargetProperty="(Canvas.Top)"
+                             From="50"
+                             To="75"
+                             Duration="0:0:0.25"
+                             AutoReverse="True" />
+        </Storyboard>
+
+         <!--Animation for DotEllipse2 in opposition to DotEllipse--> 
+        <Storyboard x:Key="BounceAnimationOpposite"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="DotEllipse2"
+                             Storyboard.TargetProperty="(Canvas.Top)"
+                             From="75"
+                             To="50"
+                             Duration="0:0:0.25"
+                             AutoReverse="True" />
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        
+        <!-- Build Solution Button -->
+        <Button Content="Build Solution PS Script"
+                Grid.Row="1"
+                Width="200"
+                Height="40"
+                Command="{Binding BuildSolutionCommand}"
+                Background="DodgerBlue"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,10,0,20"
+                BorderBrush="DarkBlue"
+                BorderThickness="1" />
+
+        <!-- Label for PowerShell Script -->
+        <Label Content="Embedded PowerShell script ="
+               Grid.Row="2"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               FontSize="12"
+               FontWeight="Light"
+               Margin="10,0,0,0"
+               VerticalContentAlignment="Center" />
+
+        <!-- Display TextBlock for PowerShell Script -->
+        <TextBlock Text="{Binding DisplayPsScript}"
+                   Grid.Row="3"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Top"
+                   FontSize="11"
+                   FontWeight="Regular"
+                   Margin="0,0,0,0"
+                   MaxWidth="375"
+                   TextWrapping="Wrap" />
+
+        <!-- Launch PowerShell Script Button -->
+        <Button Content="Launch Embedded PS Script"
+                Grid.Row="4"
+                Width="230"
+                Height="40"
+                Command="{Binding RunPowerShellCommand}"
+                Background="DodgerBlue"
+                Foreground="White"
+                FontWeight="Bold"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,0,0,0"
+                BorderBrush="DarkBlue"
+                BorderThickness="1" />
+
+        <!-- ListBox for ProcessInfo -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.Row="5">
+            <ListBox ItemsSource="{Binding ProcessInfo}"
+                     Margin="20"
+                     Height="250"
+                     Width="400"
+                     BorderThickness="7"
+                     BorderBrush="Blue"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center" />
+        </ScrollViewer>
+
+        <Canvas Grid.Row="0">
+            <!-- Drawing the letter 'T' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="69,70"
+                                      EndPoint="69,150" />
+                        <!-- Vertical Line -->
+                        <LineGeometry StartPoint="55,73"
+                                      EndPoint="83,73" />
+                        <!-- Horizontal Line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'H' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="90,70"
+                                      EndPoint="90,150" />
+                        <!-- Left vertical line -->
+                        <LineGeometry StartPoint="110,90"
+                                      EndPoint="110,150" />
+                        <!-- Right vertical line -->
+                        <LineGeometry StartPoint="90,94"
+                                      EndPoint="113,90" />
+                        <!-- Horizontal line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'I' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="120,87"
+                                      EndPoint="120,150" />
+                        <!-- Vertical Line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'N' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="130,87"
+                                      EndPoint="130,150" />
+                        <!-- Left vertical line -->
+                        <LineGeometry StartPoint="150,87"
+                                      EndPoint="150,150" />
+                        <!-- Right vertical line -->
+                        <LineGeometry StartPoint="130,97"
+                                      EndPoint="150,90" />
+                        <!-- Diagonal line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'K' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="160,70"
+                                      EndPoint="160,150" />
+                        <!-- Vertical line -->
+                        <LineGeometry StartPoint="160,120"
+                                      EndPoint="180,150" />
+                        <!-- Upper diagonal line -->
+                        <LineGeometry StartPoint="160,120"
+                                      EndPoint="180,90" />
+                        <!-- Lower diagonal line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'S' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="210,73"
+                                      EndPoint="190,73" />
+                        <!-- Top horizontal line -->
+                        <LineGeometry StartPoint="190,70"
+                                      EndPoint="190,100" />
+                        <!-- Vertical line on left -->
+                        <LineGeometry StartPoint="190,100"
+                                      EndPoint="210,120" />
+                        <!-- Bottom horizontal line -->
+                        <LineGeometry StartPoint="210,120"
+                                      EndPoint="210,150" />
+                        <!-- Vertical line on left -->
+                        <LineGeometry StartPoint="210,147"
+                                      EndPoint="190,147" />
+                        <!-- Horizontal line bottom -->
+                        <LineGeometry StartPoint="210,70"
+                                      EndPoint="210,90" />
+                        <!-- Vertical line on top right -->
+                        <LineGeometry StartPoint="190,125"
+                                      EndPoint="190,150" />
+                        <!-- Vertical line on bottom left -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'T' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="224,70"
+                                      EndPoint="224,150" />
+                        <!-- Vertical Line -->
+                        <LineGeometry StartPoint="215,90"
+                                      EndPoint="233,90" />
+                        <!-- Horizontal Line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'A' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <!-- Left vertical line -->
+                        <LineGeometry StartPoint="240,150"
+                                      EndPoint="240,120" />
+                        <!-- Right vertical line -->
+                        <LineGeometry StartPoint="260,150"
+                                      EndPoint="260,87" />
+                        <!-- Top vertical bar left of 'A' -->
+                        <LineGeometry StartPoint="240,87"
+                                      EndPoint="240,105" />
+                        <!-- Top Horizontal bar of 'A' -->
+                        <LineGeometry StartPoint="240,90"
+                                      EndPoint="260,90" />
+                        <!-- Middle diagonal bar of 'A' -->
+                        <LineGeometry StartPoint="240,120"
+                                      EndPoint="260,110" />
+                        <!-- Bottom horizontalbar of 'A' -->
+                        <LineGeometry StartPoint="240,147"
+                                      EndPoint="260,147" />
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'T' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="274,70"
+                                      EndPoint="274,150" />
+                        <!-- Vertical Line -->
+                        <LineGeometry StartPoint="265,90"
+                                      EndPoint="283,90" />
+                        <!-- Horizontal Line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'I' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="290,87"
+                                      EndPoint="290,150" />
+                        <!-- Vertical Line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'O' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="300,87"
+                                      EndPoint="300,150" />
+                        <!-- Left vertical line -->
+                        <LineGeometry StartPoint="300,90"
+                                      EndPoint="320,90" />
+                        <!-- Top horizontal line -->
+                        <LineGeometry StartPoint="320,87"
+                                      EndPoint="320,150" />
+                        <!-- Right vertical line -->
+                        <LineGeometry StartPoint="320,147"
+                                      EndPoint="300,147" />
+                        <!-- Bottom horizontal line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the letter 'N' -->
+            <Path Stroke="{Binding PenBrush}"
+                  StrokeThickness="6">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="330,87"
+                                      EndPoint="330,150" />
+                        <!-- Left vertical line -->
+                        <LineGeometry StartPoint="350,87"
+                                      EndPoint="350,150" />
+                        <!-- Right vertical line -->
+                        <LineGeometry StartPoint="330,97"
+                                      EndPoint="350,90" />
+                        <!-- Diagonal line -->
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+
+            <!-- Drawing the dot above the 'i' -->
+            <Ellipse Width="15"
+                     Height="15"
+                     Fill="Red"
+                     Canvas.Left="112"
+                     Canvas.Top="50"
+                     Name="DotEllipse" />
+
+            <Ellipse Width="15"
+                     Height="15"
+                     Fill="Black"
+                     Canvas.Left="282"
+                     Canvas.Top="50"
+                     Name="DotEllipse2" />
+        </Canvas>
+
+    </Grid>
+</Window>

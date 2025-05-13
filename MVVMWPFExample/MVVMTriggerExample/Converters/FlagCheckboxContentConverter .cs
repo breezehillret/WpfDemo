@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace MVVMExample.Converters
 {
-    public class FlagCheckboxContentConverter : IValueConverter
+    public struct FlagCheckboxContentConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
